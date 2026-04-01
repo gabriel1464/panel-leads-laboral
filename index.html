@@ -1,281 +1,554 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de Leads</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inverti en Ganado</title>
   <style>
     :root {
-      --bg: #0b0b0b;
-      --card: #151515;
-      --line: #2a2a2a;
-      --text: #f5f5f5;
-      --muted: #a1a1a1;
-      --accent: #00e5a8;
-      --warn: #ffd54a;
-      --danger: #ff6b6b;
+      --bg: #08110b;
+      --panel: #101a13;
+      --panel-soft: #17231b;
+      --line: #253328;
+      --text: #f2f5ef;
+      --muted: #b1b9b0;
+      --soft: #859084;
+      --accent: #d9ff63;
+      --accent-2: #52e09e;
+      --accent-3: #f8fff8;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(82, 224, 158, 0.12), transparent 24%),
+        linear-gradient(180deg, #071009 0%, #0d1810 100%);
       color: var(--text);
-      padding: 24px;
-    }
-
-    .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-    }
-
-    h1, h2 {
-      margin: 0 0 12px;
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-
-    .stat {
-      background: #101010;
-      border: 1px solid var(--line);
-      border-radius: 12px;
+      font-family: "Segoe UI", Arial, sans-serif;
       padding: 16px;
     }
 
-    .stat strong {
+    .page {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero,
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(217, 255, 99, 0.08);
+      border: 1px solid rgba(217, 255, 99, 0.16);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(42px, 7vw, 80px);
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .hero-copy,
+    .intro,
+    .mini span,
+    .play p,
+    .play li,
+    .info-line,
+    .result-copy {
+      color: var(--muted);
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 18px 0 0;
+      font-size: clamp(19px, 2.2vw, 26px);
+      line-height: 1.3;
+    }
+
+    .hero-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .mini {
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .mini strong {
       display: block;
-      font-size: 28px;
       margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 24px;
+      line-height: 0.95;
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+    }
+
+    .mini span {
+      font-size: 14px;
+      line-height: 1.42;
+    }
+
+    .game-panel {
+      padding: 20px;
+      border-radius: 22px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255,255,255,0.05);
+      display: grid;
+      gap: 18px;
+    }
+
+    .game-panel h2 {
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .stage-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .stage {
+      padding: 10px 8px;
+      border-radius: 14px;
+      text-align: center;
+      background: #111712;
+      border: 1px solid rgba(255,255,255,0.05);
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, color 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .stage.active {
+      color: #0c120a;
+      background: var(--accent);
+      border-color: transparent;
+      transform: translateY(-2px);
+    }
+
+    .cow-zone {
+      display: grid;
+      justify-items: center;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cows {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      min-height: 88px;
+    }
+
+    .cow {
+      width: 72px;
+      height: 72px;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .cow.active {
+      transform: translateY(-3px) scale(1.04);
+      filter: drop-shadow(0 10px 18px rgba(217, 255, 99, 0.12));
+    }
+
+    .cow svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .range {
+      width: 100%;
+      accent-color: #d9ff63;
+    }
+
+    .results {
+      display: grid;
+      gap: 12px;
+    }
+
+    .result-box {
+      padding: 16px;
+      border-radius: 18px;
+      background: #111712;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .big {
+      color: var(--accent-3);
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 0.95;
+    }
+
+    .big.accent {
       color: var(--accent);
     }
 
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-    }
-
-    select, input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      background: #0f0f0f;
-      color: var(--text);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
+    .result-copy {
+      font-size: 15px;
+      line-height: 1.42;
       margin-top: 8px;
     }
 
-    th, td {
-      padding: 12px 10px;
-      border-bottom: 1px solid var(--line);
-      text-align: left;
+    .info-line {
       font-size: 14px;
+      line-height: 1.45;
     }
 
-    th {
-      color: var(--muted);
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 18px 18px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0c140d;
+      font-family: "Arial Black", "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
       text-transform: uppercase;
-      font-size: 12px;
+      letter-spacing: 0.03em;
+      cursor: pointer;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: bold;
+    .section {
+      padding: 24px;
     }
 
-    .status-new { background: #1d3557; color: #fff; }
-    .status-contacted { background: #264653; color: #fff; }
-    .status-qualified { background: #2a9d8f; color: #000; }
-    .status-follow_up { background: #e9c46a; color: #000; }
-    .status-closed_won { background: #00c853; color: #000; }
-    .status-closed_lost { background: #c1121f; color: #fff; }
+    .section-head {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
 
-    .temp-cold { color: #7dd3fc; }
-    .temp-warm { color: var(--warn); }
-    .temp-hot { color: var(--danger); }
+    .section h2 {
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 0.96;
+      text-transform: uppercase;
+    }
 
-    @media (max-width: 900px) {
-      .stats, .filters {
+    .intro {
+      max-width: 860px;
+      font-size: 18px;
+      line-height: 1.48;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .play {
+      padding: 20px;
+      border-radius: 20px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255,255,255,0.05);
+      display: grid;
+      gap: 10px;
+    }
+
+    .play .tag {
+      color: var(--accent-2);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .play h3 {
+      font-size: 24px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .play p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.48;
+    }
+
+    .play ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-strip,
+      .grid {
         grid-template-columns: 1fr 1fr;
       }
-
-      table {
-        display: block;
-        overflow-x: auto;
-      }
     }
 
-    @media (max-width: 600px) {
-      .stats, .filters {
+    @media (max-width: 700px) {
+      body {
+        padding: 10px;
+      }
+
+      .hero,
+      .section {
+        padding: 18px;
+      }
+
+      .hero-strip,
+      .grid,
+      .stage-strip {
         grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="card">
-      <h1>Panel de Leads</h1>
-      <p class="muted">Control simple y claro del ingreso de consultas laborales.</p>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Juego de inversion ganadera</div>
+        <h1>Subi de nivel tu entrada en ganado en Uruguay</h1>
+        <p class="hero-copy">
+          Esta landing simplifica la decision de inversion en cinco niveles.
+          Cada nivel suma un animal, eleva la tasa mensual y te muestra al instante
+          cuanto capital pones y cuanto ganarias por mes.
+        </p>
+
+        <div class="hero-strip">
+          <div class="mini">
+            <strong>$1M</strong>
+            <span>El primer nivel arranca con una entrada de un millon de pesos por animal.</span>
+          </div>
+          <div class="mini">
+            <strong>6%</strong>
+            <span>La tasa base mensual empieza en seis por ciento para el primer bloque.</span>
+          </div>
+          <div class="mini">
+            <strong>+0,5%</strong>
+            <span>Cada nuevo animal sube medio punto y mejora el rendimiento mensual estimado.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="game-panel">
+        <h2>Elegi tu nivel</h2>
+
+        <div id="stage-strip" class="stage-strip">
+          <div class="stage active">Nivel 1</div>
+          <div class="stage">Nivel 2</div>
+          <div class="stage">Nivel 3</div>
+          <div class="stage">Nivel 4</div>
+          <div class="stage">Nivel 5</div>
+        </div>
+
+        <div class="cow-zone">
+          <div id="cows" class="cows"></div>
+          <input id="range" class="range" type="range" min="1" max="5" value="1">
+        </div>
+
+        <div class="results">
+          <div class="result-box">
+            <span class="label">Cantidad de animales</span>
+            <div id="count" class="big">1</div>
+            <div class="result-copy">Cada animal representa un bloque nuevo de inversion.</div>
+          </div>
+
+          <div class="result-box">
+            <span class="label">Capital estimado</span>
+            <div id="capital" class="big">$1.000.000</div>
+            <div class="result-copy">Calculado sobre una base de un millon por animal.</div>
+          </div>
+
+          <div class="result-box">
+            <span class="label">Tasa mensual</span>
+            <div id="rate" class="big accent">6,0%</div>
+            <div class="result-copy">Sube en bloques de 0,5% a medida que avanzas de nivel.</div>
+          </div>
+
+          <div class="result-box">
+            <span class="label">Ganancia estimada por mes</span>
+            <div id="profit" class="big accent">$60.000</div>
+            <div class="result-copy">Estimacion mensual simple sobre el capital total del nivel elegido.</div>
+          </div>
+        </div>
+
+        <div class="info-line">
+          Supuesto de calculo: Nivel 1 = 6,0% mensual. Cada animal adicional sube la tasa a 6,5%, 7,0%, 7,5% y 8,0%.
+        </div>
+
+        <button id="cta" class="cta" type="button">Quiero entrar en este nivel</button>
+      </aside>
     </section>
 
-    <section class="stats">
-      <div class="stat">
-        <strong>128</strong>
-        <span class="muted">Leads totales</span>
+    <section class="section">
+      <div class="section-head">
+        <h2>Como vende mejor esta web</h2>
+        <p class="intro">
+          La pagina trabaja con una logica de neuromarketing simple: mostrar el numero rapido,
+          dejar que la persona juegue con niveles claros y convertir una decision compleja en una
+          eleccion visible entre uno y cinco pasos.
+        </p>
       </div>
-      <div class="stat">
-        <strong>19</strong>
-        <span class="muted">Leads calientes</span>
+
+      <div class="grid">
+        <article class="play">
+          <div class="tag">Regla 01</div>
+          <h3>Decision simple</h3>
+          <p>La propuesta no obliga a pensar demasiado: uno a cinco animales y un valor visible por bloque.</p>
+          <ul>
+            <li>La escala corta reduce friccion.</li>
+            <li>La persona siente control.</li>
+            <li>El siguiente paso es claro.</li>
+          </ul>
+        </article>
+
+        <article class="play">
+          <div class="tag">Regla 02</div>
+          <h3>Progreso visible</h3>
+          <p>La idea de niveles convierte mejor que una tabla seca porque la entrada se siente como avance.</p>
+          <ul>
+            <li>Cada vaca representa un bloque real.</li>
+            <li>El nivel cambia con un gesto.</li>
+            <li>La tasa mejora al subir.</li>
+          </ul>
+        </article>
+
+        <article class="play">
+          <div class="tag">Regla 03</div>
+          <h3>Ganancia inmediata</h3>
+          <p>Mostrar la ganancia mensual estimada en vivo convierte mucho mejor que dejar el calculo escondido.</p>
+          <ul>
+            <li>La promesa se vuelve tangible.</li>
+            <li>El monto se entiende en segundos.</li>
+            <li>La accion final gana fuerza.</li>
+          </ul>
+        </article>
       </div>
-      <div class="stat">
-        <strong>34</strong>
-        <span class="muted">Seguimientos hoy</span>
-      </div>
-      <div class="stat">
-        <strong>$8.420.000</strong>
-        <span class="muted">Valor estimado</span>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Filtros</h2>
-      <div class="filters">
-        <select>
-          <option>Fuente</option>
-          <option>WhatsApp</option>
-          <option>Instagram</option>
-          <option>Landing</option>
-        </select>
-
-        <select>
-          <option>Tema</option>
-          <option>Despido</option>
-          <option>Trabajo en negro</option>
-          <option>Accidente laboral</option>
-        </select>
-
-        <select>
-          <option>Estado</option>
-          <option>New</option>
-          <option>Contacted</option>
-          <option>Qualified</option>
-          <option>Follow up</option>
-        </select>
-
-        <select>
-          <option>Asignado a</option>
-          <option>Fanny</option>
-          <option>Gabriel</option>
-        </select>
-
-        <select>
-          <option>Urgencia</option>
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
-        </select>
-
-        <select>
-          <option>Temperatura</option>
-          <option>Cold</option>
-          <option>Warm</option>
-          <option>Hot</option>
-        </select>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Leads recientes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Fuente</th>
-            <th>Tema</th>
-            <th>Estado</th>
-            <th>Asignado</th>
-            <th>Urgencia</th>
-            <th>Temperatura</th>
-            <th>Próximo seguimiento</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Marina Pereira</td>
-            <td>+54 9 11 6101-6926</td>
-            <td>WhatsApp</td>
-            <td>Despido</td>
-            <td><span class="badge status-qualified">Qualified</span></td>
-            <td>Fanny</td>
-            <td>High</td>
-            <td class="temp-hot">Hot</td>
-            <td>2026-04-01 15:00</td>
-          </tr>
-          <tr>
-            <td>Lucia Gomez</td>
-            <td>+54 9 11 5555-1234</td>
-            <td>Landing</td>
-            <td>Trabajo en negro</td>
-            <td><span class="badge status-contacted">Contacted</span></td>
-            <td>Gabriel</td>
-            <td>Medium</td>
-            <td class="temp-warm">Warm</td>
-            <td>2026-04-01 18:30</td>
-          </tr>
-          <tr>
-            <td>Nicolas Diaz</td>
-            <td>+54 9 351 444-2222</td>
-            <td>Instagram</td>
-            <td>Accidente laboral</td>
-            <td><span class="badge status-follow_up">Follow up</span></td>
-            <td>Fanny</td>
-            <td>High</td>
-            <td class="temp-hot">Hot</td>
-            <td>2026-04-02 10:00</td>
-          </tr>
-          <tr>
-            <td>Camila Ruiz</td>
-            <td>+54 9 223 888-1111</td>
-            <td>WhatsApp</td>
-            <td>Salario adeudado</td>
-            <td><span class="badge status-new">New</span></td>
-            <td>Fanny</td>
-            <td>Low</td>
-            <td class="temp-cold">Cold</td>
-            <td>2026-04-02 12:00</td>
-          </tr>
-        </tbody>
-      </table>
     </section>
   </main>
+
+  <script>
+    const basePerAnimal = 1000000;
+    const baseRate = 6;
+    const stepRate = 0.5;
+    const range = document.getElementById("range");
+    const count = document.getElementById("count");
+    const capital = document.getElementById("capital");
+    const rate = document.getElementById("rate");
+    const profit = document.getElementById("profit");
+    const cta = document.getElementById("cta");
+    const stageStrip = document.getElementById("stage-strip");
+    const cows = document.getElementById("cows");
+
+    function money(value) {
+      return new Intl.NumberFormat("es-UY").format(value);
+    }
+
+    function cowSvg(active = false) {
+      return `
+        <div class="cow ${active ? "active" : ""}">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="18" y="34" width="64" height="42" rx="18" fill="${active ? "#d9ff63" : "#f5f7f2"}"/>
+            <circle cx="88" cy="50" r="18" fill="${active ? "#d9ff63" : "#f5f7f2"}"/>
+            <rect x="28" y="72" width="8" height="24" rx="4" fill="${active ? "#d9ff63" : "#f5f7f2"}"/>
+            <rect x="58" y="72" width="8" height="24" rx="4" fill="${active ? "#d9ff63" : "#f5f7f2"}"/>
+            <path d="M92 34L103 24L107 34" stroke="${active ? "#d9ff63" : "#f5f7f2"}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M80 34L69 24L65 34" stroke="${active ? "#d9ff63" : "#f5f7f2"}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="83" cy="49" r="3.5" fill="#101913"/>
+            <circle cx="94" cy="49" r="3.5" fill="#101913"/>
+            <path d="M84 60C87 63 91 63 94 60" stroke="#101913" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      `;
+    }
+
+    function update() {
+      const qty = Number(range.value);
+      const totalCapital = qty * basePerAnimal;
+      const monthlyRate = baseRate + ((qty - 1) * stepRate);
+      const monthlyProfit = totalCapital * (monthlyRate / 100);
+
+      count.textContent = qty;
+      capital.textContent = `$${money(totalCapital)}`;
+      rate.textContent = `${monthlyRate.toFixed(1).replace(".", ",")}%`;
+      profit.textContent = `$${money(monthlyProfit)}`;
+      cta.textContent = `Quiero entrar en nivel ${qty}`;
+
+      stageStrip.querySelectorAll(".stage").forEach((item, index) => {
+        item.classList.toggle("active", index === qty - 1);
+      });
+
+      cows.innerHTML = Array.from({ length: 5 }, (_, index) => cowSvg(index < qty)).join("");
+    }
+
+    range.addEventListener("input", update);
+    update();
+  </script>
 </body>
 </html>
