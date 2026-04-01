@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estrategias de Captacion Laboral</title>
+  <style>
+    :root {
+      --bg: #030303;
+      --panel: #101010;
+      --panel-soft: #171717;
+      --line: #282828;
+      --text: #f5f5f5;
+      --muted: #b6b6b6;
+      --lime: #e8ff4a;
+      --green: #00f0a4;
+      --cyan: #00cbff;
+      --pink: #ff4fd8;
+      --orange: #ff9b37;
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(0, 203, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 90% 12%, rgba(255, 79, 216, 0.15), transparent 20%),
+        linear-gradient(180deg, #020202 0%, #070707 100%);
+      color: var(--text);
+      font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+      padding: 18px;
+    }
+
+    .page {
+      width: min(100%, 1320px);
+      margin: 0 auto;
+      display: grid;
+      gap: 22px;
+    }
+
+    .hero,
+    .block,
+    .cta {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 44%),
+        var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before,
+    .block::before,
+    .cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 26px 26px;
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    .hero {
+      padding: 32px;
+      display: grid;
+      gap: 26px;
+    }
+
+    .hero-top,
+    .section-head,
+    .card-head,
+    .cta-bar {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(232, 255, 74, 0.18);
+      background: rgba(232, 255, 74, 0.08);
+      color: var(--lime);
+      font-size: 15px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "Boost";
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--lime);
+      color: #090909;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 1100px;
+      font-size: clamp(56px, 9vw, 122px);
+      line-height: .86;
+      letter-spacing: -.05em;
+      text-transform: uppercase;
+    }
+
+    .highlight {
+      color: var(--green);
+      text-shadow: 0 0 22px rgba(0, 240, 164, 0.18);
+    }
+
+    .hero-copy {
+      max-width: 980px;
+      margin: 18px 0 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      font-size: clamp(22px, 2.4vw, 31px);
+      line-height: 1.18;
+      color: var(--muted);
+    }
+
+    .hero-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini {
+      position: relative;
+      z-index: 1;
+      padding: 18px;
+      border-radius: 22px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .mini strong {
+      display: block;
+      color: var(--green);
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: .94;
+      margin-bottom: 6px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    .block,
+    .cta {
+      padding: 26px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 72px);
+      line-height: .9;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+
+    .intro,
+    .footer-note,
+    .hook,
+    .case-copy,
+    .play-text,
+    .score-note {
+      font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    .intro {
+      max-width: 860px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.45;
+    }
+
+    .badge {
+      flex-shrink: 0;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(255, 79, 216, 0.12);
+      border: 1px solid rgba(255, 79, 216, 0.24);
+      color: var(--pink);
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      align-self: start;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      border-radius: 24px;
+      background:
+        linear-gradient(160deg, rgba(255, 255, 255, 0.03), transparent 38%),
+        var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: grid;
+      gap: 14px;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 14px;
+    }
+
+    .score {
+      color: var(--lime);
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .lvl {
+      min-width: 92px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(0, 240, 164, 0.1);
+      border: 1px solid rgba(0, 240, 164, 0.18);
+      color: var(--green);
+      text-align: center;
+      font-size: 14px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: clamp(24px, 2.5vw, 36px);
+      line-height: .95;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+    }
+
+    .score-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .hook {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 155, 55, 0.09);
+      border: 1px solid rgba(255, 155, 55, 0.18);
+      color: #ffd5a6;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .fact {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #0c0c0c;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .label {
+      display: block;
+      color: var(--cyan);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .case-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .boost-line {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: #0c0c0c;
+      border: 1px solid rgba(255,255,255,.06);
+      color: var(--text);
+    }
+
+    .playbook {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .play-card {
+      position: relative;
+      z-index: 1;
+      padding: 22px;
+      border-radius: 24px;
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: grid;
+      gap: 12px;
+    }
+
+    .play-card h3 {
+      margin: 0;
+      color: var(--lime);
+      font-size: clamp(24px, 3vw, 36px);
+      text-transform: uppercase;
+    }
+
+    .play-text {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.48;
+    }
+
+    .checklist {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .cta {
+      display: grid;
+      gap: 16px;
+    }
+
+    .cta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .cta-copy {
+      max-width: 840px;
+    }
+
+    .cta h2 {
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.48;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      padding: 18px 22px;
+      border-radius: 18px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      font-size: 20px;
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.08);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      color: #03120e;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--text);
+    }
+
+    .footer-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-strip,
+      .grid,
+      .playbook {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 12px;
+      }
+
+      .hero,
+      .block,
+      .cta {
+        padding: 18px;
+      }
+
+      .hero-strip,
+      .grid,
+      .playbook {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head,
+      .card-head,
+      .cta-bar {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="eyebrow">Neuromarketing + gamificacion</div>
+        <h1>9 motores para <span class="highlight">captar mas leads</span> en derecho laboral</h1>
+        <p class="hero-copy">
+          Esta página está diseñada como tablero de conversión: cada rubro se presenta como
+          una misión rentable, con gancho psicológico, emoción dominante, pregunta de entrada
+          y forma más simple de transformar atención en contacto real.
+        </p>
+      </div>
+
+      <div class="hero-strip">
+        <div class="mini">
+          <strong>Shock</strong>
+          <span>El primer golpe visual tiene que detener el scroll y hacer sentir que el problema está nombrado.</span>
+        </div>
+        <div class="mini">
+          <strong>Dolor</strong>
+          <span>La captación mejora cuando hablás del miedo, la bronca o la pérdida económica antes que de la ley.</span>
+        </div>
+        <div class="mini">
+          <strong>Ruta</strong>
+          <span>La gente deja sus datos más fácil cuando siente que hay un camino claro y no un discurso confuso.</span>
+        </div>
+        <div class="mini">
+          <strong>Premio</strong>
+          <span>El cerebro responde mejor a la idea de alivio rápido, orden y acompañamiento concreto.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head">
+        <div>
+          <h2>Las 9 misiones mas rentables</h2>
+          <p class="intro">
+            Cada misión combina un dolor fuerte, una promesa de claridad y un siguiente paso fácil.
+            Esa mezcla es la que hace que la persona no solo mire, sino que responda y deje datos.
+          </p>
+        </div>
+        <div class="badge">Tablero de conversion</div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Crisis inmediata</div>
+              <h3>Despido</h3>
+            </div>
+            <div class="lvl">Mision 01</div>
+          </div>
+          <p class="score-note">Convierte fuerte porque mezcla shock, bronca y miedo a quedarse sin ingreso.</p>
+          <div class="hook">Gancho ideal: "¿Te echaron y no sabés qué hacer ahora?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">Entrar por el "ahora" activa urgencia. El usuario siente que hay una ventana de reacción.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Pedir antigüedad, fecha, firma y deuda. Son preguntas cortas que disparan continuidad.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Urgencia alta</span>
+            <span class="chip">Dolor economico</span>
+            <span class="chip">Lead caliente</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Masa critica enorme</div>
+              <h3>Trabajo en negro</h3>
+            </div>
+            <div class="lvl">Mision 02</div>
+          </div>
+          <p class="score-note">Rinde muy bien porque hay identificación masiva y una sensación de injusticia acumulada.</p>
+          <div class="hook">Gancho ideal: "¿Trabajaste sin aportes o sin registrar?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">Romper la creencia "si estaba en negro no puedo hacer nada" dispara respuesta inmediata.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Nombrar pruebas cotidianas: mensajes, transferencias, audios, testigos. Eso devuelve esperanza.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Volumen alto</span>
+            <span class="chip">Facil de comunicar</span>
+            <span class="chip">Gran ticket</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Dolor fisico + miedo</div>
+              <h3>Accidente laboral</h3>
+            </div>
+            <div class="lvl">Mision 03</div>
+          </div>
+          <p class="score-note">Tiene mucho peso porque el reclamo toca salud, secuelas y falta de respuesta.</p>
+          <div class="hook">Gancho ideal: "¿La ART no te responde o te quedaron secuelas?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">La promesa emocional no es solo plata: es no quedar solo frente al daño sufrido.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Preguntar fecha, dónde ocurrió, si intervino la ART y si hay estudios médicos.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Secuelas</span>
+            <span class="chip">Impacto alto</span>
+            <span class="chip">Rapida reaccion</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Golpe al bolsillo</div>
+              <h3>Salarios adeudados</h3>
+            </div>
+            <div class="lvl">Mision 04</div>
+          </div>
+          <p class="score-note">Convierte porque el problema es muy fácil de entender y genera acción sin mucha explicación.</p>
+          <div class="hook">Gancho ideal: "¿No te pagaron o te pagan menos de lo que corresponde?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">Cuando hablás de plata faltante, el cerebro detecta pérdida concreta y reacciona más rápido.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Pedir monto, meses adeudados y recibos. Cuanto más simple la pregunta, más avanza el lead.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Dolor diario</span>
+            <span class="chip">Facil de medir</span>
+            <span class="chip">Alta respuesta</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Duda que abre puerta</div>
+              <h3>Liquidacion final</h3>
+            </div>
+            <div class="lvl">Mision 05</div>
+          </div>
+          <p class="score-note">La persona muchas veces ya cobró, pero sospecha que cobró mal. Esa duda es potentísima.</p>
+          <div class="hook">Gancho ideal: "¿Te liquidaron y sentís que falta plata?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">La palabra "revisar" baja resistencia. No suena a conflicto, suena a control inteligente.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Pedir antigüedad, último recibo y si firmó documentos. Eso hace avanzar la conversación enseguida.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Sospecha</span>
+            <span class="chip">Revision facil</span>
+            <span class="chip">Buen cierre</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Desgaste acumulado</div>
+              <h3>Horas extra</h3>
+            </div>
+            <div class="lvl">Mision 06</div>
+          </div>
+          <p class="score-note">Se activa cuando la persona siente que dio más de lo que recibió y eso se recuerda con mucha fuerza.</p>
+          <div class="hook">Gancho ideal: "¿Te hacían quedar de más y nunca te lo pagaron?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">El recuerdo del cansancio refuerza la percepción de injusticia. Eso empuja consulta.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Preguntar horarios, fichadas, audios y mensajes fuera de hora. Son disparadores fáciles de contestar.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Injusticia</span>
+            <span class="chip">Pruebas simples</span>
+            <span class="chip">Buena apertura</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Carga emocional maxima</div>
+              <h3>Maltrato y mobbing</h3>
+            </div>
+            <div class="lvl">Mision 07</div>
+          </div>
+          <p class="score-note">No entra por la ley: entra por el agotamiento, el dolor psicológico y la necesidad de ser entendido.</p>
+          <div class="hook">Gancho ideal: "¿Te humillan, te maltratan o ya no aguantás el ambiente?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">La validación emocional baja defensas y hace que la persona hable más y deje mejores datos.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">No sonar técnico. Pedir hechos, ejemplos, mensajes y efectos en salud o rutina.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Contencion</span>
+            <span class="chip">Confianza</span>
+            <span class="chip">Lead sensible</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Proteccion especial</div>
+              <h3>Licencias y maternidad</h3>
+            </div>
+            <div class="lvl">Mision 08</div>
+          </div>
+          <p class="score-note">Estos casos convierten mejor cuando la comunicación transmite seguridad y no agresividad.</p>
+          <div class="hook">Gancho ideal: "¿No respetaron tu licencia o cambiaron tus condiciones?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">La palabra "protección" genera alivio. La persona quiere sentirse cuidada y orientada.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Preguntar etapa, fechas, respuesta de la empresa y situación actual. Lo pedagógico vende más.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Seguridad</span>
+            <span class="chip">Tono humano</span>
+            <span class="chip">Confianza alta</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head">
+            <div>
+              <div class="score">Dolor moderno</div>
+              <h3>Teletrabajo abusivo</h3>
+            </div>
+            <div class="lvl">Mision 09</div>
+          </div>
+          <p class="score-note">Es muy capturable porque mucha gente se reconoce rápido en la sensación de disponibilidad infinita.</p>
+          <div class="hook">Gancho ideal: "¿Trabajás desde casa y te exigen como si estuvieras siempre conectado?"</div>
+          <div class="stack">
+            <div class="fact">
+              <span class="label">Neuromarketing</span>
+              <p class="case-copy">El usuario reconoce enseguida su desgaste. La identificación visual y verbal hace el resto.</p>
+            </div>
+            <div class="fact">
+              <span class="label">Estrategia</span>
+              <p class="case-copy">Preguntar por horarios, mensajes nocturnos, herramientas y cambios unilaterales.</p>
+            </div>
+          </div>
+          <div class="boost-line">
+            <span class="chip">Tema actual</span>
+            <span class="chip">Facil de viralizar</span>
+            <span class="chip">Amplia audiencia</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head">
+        <div>
+          <h2>Playbook para captar mas</h2>
+          <p class="intro">
+            El mejor neuromarketing para este nicho no es exagerar. Es nombrar el dolor correcto,
+            prometer orden y empujar a una acción mínima que no asuste.
+          </p>
+        </div>
+        <div class="badge">Sistema de conversion</div>
+      </div>
+
+      <div class="playbook">
+        <article class="play-card">
+          <h3>Fase 1: Detener el scroll</h3>
+          <p class="play-text">
+            Usá frases con dolor concreto y lenguaje cotidiano. La persona no está buscando artículos:
+            está buscando que alguien describa con precisión lo que le pasó.
+          </p>
+          <ul class="checklist">
+            <li>Entrar con una pregunta corta y emocional.</li>
+            <li>Usar verbos reales: echaron, deben, maltratan, no pagan.</li>
+            <li>Evitar texto legal o explicaciones largas al comienzo.</li>
+            <li>Mostrar una sola idea fuerte por pieza.</li>
+          </ul>
+        </article>
+
+        <article class="play-card">
+          <h3>Fase 2: Hacerlo responder</h3>
+          <p class="play-text">
+            La respuesta aparece cuando el siguiente paso es tan fácil que parece natural. Por eso
+            conviene pedir un dato simple antes que una historia completa.
+          </p>
+          <ul class="checklist">
+            <li>Preguntar primero qué pasó, no todo junto.</li>
+            <li>Después pedir tiempo trabajado, registración o deuda.</li>
+            <li>Separar preguntas para que el chat avance sin cansar.</li>
+            <li>Validar con frases cortas: "ya te ubico", "vamos paso a paso".</li>
+          </ul>
+        </article>
+
+        <article class="play-card">
+          <h3>Fase 3: Convertir en lead</h3>
+          <p class="play-text">
+            La conversación se vuelve valiosa cuando deja datos útiles, claridad sobre el tema
+            principal y una disposición real a seguir.
+          </p>
+          <ul class="checklist">
+            <li>Pedir nombre, contacto y síntesis del problema.</li>
+            <li>Detectar urgencia económica y emocional.</li>
+            <li>Registrar si tiene pruebas o mensajes.</li>
+            <li>Cerrar siempre con un próximo paso claro.</li>
+          </ul>
+        </article>
+
+        <article class="play-card">
+          <h3>Fase 4: Multiplicar</h3>
+          <p class="play-text">
+            Cuando un mensaje funciona, no se improvisa otro desde cero. Se repite, se adapta y se mide.
+            Ahí es donde el sistema empieza a escalar de verdad.
+          </p>
+          <ul class="checklist">
+            <li>Reutilizar titulares que generan más respuestas.</li>
+            <li>Separar campañas por cada uno de los nueve casos.</li>
+            <li>Analizar qué gancho atrae mejor según el dolor dominante.</li>
+            <li>Actualizar formularios, anuncios y WhatsApp con el lenguaje del usuario real.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-bar">
+        <div class="cta-copy">
+          <h2>Regla final de conversion</h2>
+          <p>
+            La gente no deja datos porque "entiende el derecho". Deja datos cuando siente que alguien
+            entiende su dolor, lo ordena rápido y le da una salida concreta. Por eso la mejor página
+            no es la más técnica. Es la que hace sentir: "esto me está pasando a mí y acá puedo avanzar".
+          </p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="http://127.0.0.1:8000/">Ver landing</a>
+          <a class="btn btn-secondary" href="http://127.0.0.1:8000/panel">Ver panel</a>
+        </div>
+      </div>
+      <p class="footer-note">
+        Si un rubro duele mucho, se entiende fácil y permite hacer una pregunta corta, ese rubro tiene potencial alto de captación.
+        Tu trabajo comercial es convertir ese potencial en un camino claro y repetible.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
