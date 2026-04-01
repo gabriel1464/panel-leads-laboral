@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Leads</title>
+  <style>
+    :root {
+      --bg: #0b0b0b;
+      --card: #151515;
+      --line: #2a2a2a;
+      --text: #f5f5f5;
+      --muted: #a1a1a1;
+      --accent: #00e5a8;
+      --warn: #ffd54a;
+      --danger: #ff6b6b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      margin: 0 0 12px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: #101010;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #0f0f0f;
+      color: var(--text);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .status-new { background: #1d3557; color: #fff; }
+    .status-contacted { background: #264653; color: #fff; }
+    .status-qualified { background: #2a9d8f; color: #000; }
+    .status-follow_up { background: #e9c46a; color: #000; }
+    .status-closed_won { background: #00c853; color: #000; }
+    .status-closed_lost { background: #c1121f; color: #fff; }
+
+    .temp-cold { color: #7dd3fc; }
+    .temp-warm { color: var(--warn); }
+    .temp-hot { color: var(--danger); }
+
+    @media (max-width: 900px) {
+      .stats, .filters {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats, .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>Panel de Leads</h1>
+      <p class="muted">Control simple y claro del ingreso de consultas laborales.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <strong>128</strong>
+        <span class="muted">Leads totales</span>
+      </div>
+      <div class="stat">
+        <strong>19</strong>
+        <span class="muted">Leads calientes</span>
+      </div>
+      <div class="stat">
+        <strong>34</strong>
+        <span class="muted">Seguimientos hoy</span>
+      </div>
+      <div class="stat">
+        <strong>$8.420.000</strong>
+        <span class="muted">Valor estimado</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Filtros</h2>
+      <div class="filters">
+        <select>
+          <option>Fuente</option>
+          <option>WhatsApp</option>
+          <option>Instagram</option>
+          <option>Landing</option>
+        </select>
+
+        <select>
+          <option>Tema</option>
+          <option>Despido</option>
+          <option>Trabajo en negro</option>
+          <option>Accidente laboral</option>
+        </select>
+
+        <select>
+          <option>Estado</option>
+          <option>New</option>
+          <option>Contacted</option>
+          <option>Qualified</option>
+          <option>Follow up</option>
+        </select>
+
+        <select>
+          <option>Asignado a</option>
+          <option>Fanny</option>
+          <option>Gabriel</option>
+        </select>
+
+        <select>
+          <option>Urgencia</option>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+
+        <select>
+          <option>Temperatura</option>
+          <option>Cold</option>
+          <option>Warm</option>
+          <option>Hot</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Leads recientes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Fuente</th>
+            <th>Tema</th>
+            <th>Estado</th>
+            <th>Asignado</th>
+            <th>Urgencia</th>
+            <th>Temperatura</th>
+            <th>Próximo seguimiento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marina Pereira</td>
+            <td>+54 9 11 6101-6926</td>
+            <td>WhatsApp</td>
+            <td>Despido</td>
+            <td><span class="badge status-qualified">Qualified</span></td>
+            <td>Fanny</td>
+            <td>High</td>
+            <td class="temp-hot">Hot</td>
+            <td>2026-04-01 15:00</td>
+          </tr>
+          <tr>
+            <td>Lucia Gomez</td>
+            <td>+54 9 11 5555-1234</td>
+            <td>Landing</td>
+            <td>Trabajo en negro</td>
+            <td><span class="badge status-contacted">Contacted</span></td>
+            <td>Gabriel</td>
+            <td>Medium</td>
+            <td class="temp-warm">Warm</td>
+            <td>2026-04-01 18:30</td>
+          </tr>
+          <tr>
+            <td>Nicolas Diaz</td>
+            <td>+54 9 351 444-2222</td>
+            <td>Instagram</td>
+            <td>Accidente laboral</td>
+            <td><span class="badge status-follow_up">Follow up</span></td>
+            <td>Fanny</td>
+            <td>High</td>
+            <td class="temp-hot">Hot</td>
+            <td>2026-04-02 10:00</td>
+          </tr>
+          <tr>
+            <td>Camila Ruiz</td>
+            <td>+54 9 223 888-1111</td>
+            <td>WhatsApp</td>
+            <td>Salario adeudado</td>
+            <td><span class="badge status-new">New</span></td>
+            <td>Fanny</td>
+            <td>Low</td>
+            <td class="temp-cold">Cold</td>
+            <td>2026-04-02 12:00</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
